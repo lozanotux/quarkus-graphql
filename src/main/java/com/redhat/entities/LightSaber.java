@@ -6,5 +6,6 @@ package com.redhat.entities;
 public enum LightSaber {
     RED,
     BLUE,
-    GREEN
+    GREEN,
+    WHITE
 }

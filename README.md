@@ -40,7 +40,7 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework to test Graph
     
     Open the [http://localhost:8080/q/graphql-ui/](http://localhost:8080/q/graphql-ui/) URL in your favorite web browser.
     
-    And make a Query, for example:
+    And make a Query to get all Films, for example:
     ```
     {
       allFilms {
@@ -53,3 +53,73 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework to test Graph
       }
     }
     ```
+   
+   Or make a Query to get specific films, for example:
+   ```
+   query getFilms {
+     film0 : film(filmId: 0) {
+       episodeID,
+       title,
+       heroes {
+         name
+       }
+     }
+     film1 : film(filmId: 1) {
+       episodeID,
+       title,
+       releaseDate
+     }
+   }
+   ```
+   
+   Or create a new Hero doing a `Mutation`, for example:
+   ```
+   mutation createNewHero {
+     createHero(hero: {
+       name: "Ahsoka",
+       surname: "Tano",
+       height: 1.70,
+       mass: 54,
+       darkSide: false,
+       lightSaber: WHITE,
+       episodeIds: [1,2]
+     }) {
+       name,
+       surname
+     }
+   }
+   ```
+   
+   Or you can delete a Hero, for example:
+   ```
+   mutation deleteAHero {
+     deleteHero(id:1) {
+       name,
+       surname
+     }
+   }
+   ```
+
+6. Make an HTTP call using CURL to explore the required parameters and the returned response: 
+   ```shell script
+   curl -X POST localhost:8080/graphql -H "Content-Type: application/json" -d '{ "query": "query { allFilms { episodeID } }" }'
+   ````
+   
+   The above HTTP call should retrn the following JSON:
+   ```json
+   {
+      "data": {
+         "allFilms": [
+            {
+               "episodeID": 4
+            },
+            {
+               "episodeID": 5
+            },
+            {
+               "episodeID": 6
+            }
+        ]
+      }
+   }
+   ```

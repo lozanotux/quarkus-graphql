@@ -40,10 +40,21 @@ public class FilmResource {
         return service.getFilm(id);
     }
 
+    /**
+     * @Source annotation allow to extend the getFilm() method adding heroes for that film
+     */
     public List<Hero> heroes(@Source Film film) {
         return service.getHeroesByFilm(film);
     }
 
+    @Query("getAllHeroes")
+    @Description("Get all existing heroes")
+    public List<Hero> getAllHeroes() { return service.getAllHeroes(); }
+
+    /**
+     * @Mutation annotation of GraphQL is needed when we need to create or update a Hero.
+     * In case we have a database, @Transactional annotation is needed too.
+     */
     @Mutation
     public Hero createHero(Hero hero) {
         service.addHero(hero);
@@ -61,7 +72,9 @@ public class FilmResource {
         return service.getHeroesBySurname(surname);
     }
 
-
+    /**
+     * A experimental functionality to read data from websocket
+     */
     @Subscription
     public Multi<Hero> heroCreated() {
         return processor;

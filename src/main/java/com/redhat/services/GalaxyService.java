@@ -45,6 +45,15 @@ public class GalaxyService {
         films.add(theEmpireStrikesBack);
         films.add(returnOfTheJedi);
 
+        Hero obi = new Hero();
+        obi.name = "Obi-Wan";
+        obi.surname = "Kenobi";
+        obi.height = 1.82;
+        obi.mass = 80;
+        obi.lightSaber = LightSaber.BLUE;
+        obi.darkSide = false;
+        obi.episodeIds.addAll(Arrays.asList(4));
+
         Hero luke = new Hero();
         luke.name = "Luke";
         luke.surname = "Skywalker";
@@ -71,6 +80,7 @@ public class GalaxyService {
         vader.lightSaber = LightSaber.RED;
         vader.episodeIds.addAll(Arrays.asList(4, 5, 6));
 
+        heroes.add(obi);
         heroes.add(luke);
         heroes.add(leia);
         heroes.add(vader);
@@ -79,6 +89,8 @@ public class GalaxyService {
     public List<Film> getAllFilms() {
         return films;
     }
+
+    public List<Hero> getAllHeroes() { return heroes; }
 
     public Film getFilm(int id) {
         return films.get(id);
